@@ -4,6 +4,7 @@ import {
   Code2, Layers, Wrench, Send, CheckCircle, ChevronDown,
   Sparkles, Star, Zap, Globe, BookOpen, Award, Briefcase, GraduationCap, X
 } from 'lucide-react';
+import ContactForm from './components/ContactForm';
 
 // Custom SVG icons for Github and LinkedIn (not in this lucide-react version)
 function Github({ size = 16, color = 'currentColor' }) {
@@ -25,15 +26,15 @@ function Linkedin({ size = 16, color = 'currentColor' }) {
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const personalInfo = {
-  name: 'Palwasha Aamir',
+  name: 'Palwasha  ',
   title: 'Software Engineer',
   tagline: 'Full-Stack Developer & AI Enthusiast',
   bio: 'A passionate Software Engineering graduate with hands-on experience building full-stack web applications, integrating AI/ML solutions, and delivering clean, scalable code. Skilled in the MERN stack, PHP/Laravel, and modern dev tooling.',
-  email: 'palwashaaamir123@gmail.com',
-  phone: '+44 7835 342024',
-  location: 'United Kingdom',
-  linkedin: 'https://linkedin.com/in/palwasha-aamir',
-  github: 'https://github.com/palwashaaamir',
+  email: 'palwashakhan.2201@gmail.com',
+  phone: '+92 324 6948538',
+  location: 'Islamabad , Pakistan',
+  linkedin: 'https://www.linkedin.com/in/palwasha-khan2201/',
+  github: 'https://github.com/Palwasha-khan/',
 };
 
 const featuredProjects = [
@@ -412,94 +413,7 @@ function FeaturedCard({ p }) {
     </div>
   );
 }
-
-// ─── CONTACT FORM ─────────────────────────────────────────────────────────────
-
-function ContactForm({ onSuccess }) {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
-
-  const validate = () => {
-    const e = {};
-    if (!form.name.trim()) e.name = 'Name is required';
-    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) e.email = 'Valid email required';
-    if (!form.message.trim() || form.message.length < 10) e.message = 'Message must be at least 10 characters';
-    return e;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setForm({ name: '', email: '', message: '' });
-      setErrors({});
-      onSuccess();
-    }, 1300);
-  };
-
-  return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-      {[
-        { key: 'name', label: 'Your Name', placeholder: 'Jane Doe', type: 'text' },
-        { key: 'email', label: 'Email Address', placeholder: 'jane@example.com', type: 'email' },
-      ].map(({ key, label, placeholder, type }) => (
-        <div key={key}>
-          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#c4b0ff', marginBottom: 7, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-            {label}
-          </label>
-          <input
-            type={type}
-            className="notebook-input"
-            placeholder={placeholder}
-            value={form[key]}
-            onChange={e => setForm(p => ({ ...p, [key]: e.target.value }))}
-          />
-          {errors[key] && <p style={{ margin: '5px 0 0', fontSize: 11, color: '#ff6699', fontWeight: 500 }}>{errors[key]}</p>}
-        </div>
-      ))}
-
-      <div>
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#c4b0ff', marginBottom: 7, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-          Message
-        </label>
-        <textarea
-          className="notebook-input"
-          rows={5}
-          placeholder="Tell me about your project or just say hello..."
-          value={form.message}
-          onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
-        />
-        {errors.message && <p style={{ margin: '5px 0 0', fontSize: 11, color: '#ff6699', fontWeight: 500 }}>{errors.message}</p>}
-      </div>
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="btn-primary"
-        style={{ width: '100%', justifyContent: 'center', padding: '15px', fontSize: 14, opacity: loading ? 0.75 : 1 }}
-      >
-        {loading ? (
-          <>
-            <span style={{
-              width: 16, height: 16, border: '2.5px solid rgba(255,255,255,0.25)',
-              borderTopColor: 'white', borderRadius: '50%', display: 'inline-block',
-              animation: 'spinBtn 0.65s linear infinite',
-            }} />
-            Sending...
-          </>
-        ) : (
-          <><Send size={15} /> Send Message</>
-        )}
-      </button>
-
-      <style>{`@keyframes spinBtn { to { transform: rotate(360deg); } }`}</style>
-    </form>
-  );
-}
+ 
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
 
@@ -858,6 +772,9 @@ export default function App() {
 
         {/* ─── CONTACT ─── */}
         <FadeSection id="contact" style={{ padding: '100px 0' }}>
+        <ContactForm info={personalInfo} Github={Github} Linkedin={Linkedin}  />
+        </FadeSection>
+        {/* <FadeSection id="contact" style={{ padding: '100px 0' }}>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
             <span className="section-tag"><Mail size={10} /> Contact</span>
             <h2 style={{ margin: '18px 0 14px', fontSize: 38, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>
@@ -870,44 +787,44 @@ export default function App() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.5fr)', gap: 24, maxWidth: 920, margin: '0 auto' }} className="contact-grid">
 
-            {/* Info cards */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {[
-                { Icon: Mail, label: 'Email', val: personalInfo.email, href: `mailto:${personalInfo.email}`, c: '#ff9dbe' },
-                { Icon: Phone, label: 'Phone', val: personalInfo.phone, href: `tel:${personalInfo.phone}`, c: '#c4b0ff' },
-                { Icon: MapPin, label: 'Location', val: personalInfo.location, href: null, c: '#ff9dbe' },
-                { Icon: Github, label: 'GitHub', val: 'github.com/palwashaaamir', href: personalInfo.github, c: '#c4b0ff' },
-                { Icon: Linkedin, label: 'LinkedIn', val: 'Connect on LinkedIn', href: personalInfo.linkedin, c: '#ff9dbe' },
-              ].map(({ Icon, label, val, href, c }) => (
-                <div key={label} className="notebook-card" style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 11, background: 'rgba(196,176,255,0.05)', border: '1px solid rgba(196,176,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Icon size={16} color={c} />
-                  </div>
-                  <div>
-                    <p style={{ margin: 0, fontSize: 10, color: '#3a3050', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{label}</p>
-                    {href ? (
-                      <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
-                        style={{ fontSize: 13, color: '#c4b0ff', fontWeight: 500, textDecoration: 'none' }}
-                        onMouseEnter={e => e.target.style.color = '#ff9dbe'}
-                        onMouseLeave={e => e.target.style.color = '#c4b0ff'}
-                      >{val}</a>
-                    ) : (
-                      <p style={{ margin: 0, fontSize: 13, color: '#c4b0ff', fontWeight: 500 }}>{val}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+        //     
+        //     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        //       {[
+        //         { Icon: Mail, label: 'Email', val: personalInfo.email, href: `mailto:${personalInfo.email}`, c: '#ff9dbe' },
+        //         { Icon: Phone, label: 'Phone', val: personalInfo.phone, href: `tel:${personalInfo.phone}`, c: '#c4b0ff' },
+        //         { Icon: MapPin, label: 'Location', val: personalInfo.location, href: null, c: '#ff9dbe' },
+        //         { Icon: Github, label: 'GitHub', val: 'github.com/palwashaaamir', href: personalInfo.github, c: '#c4b0ff' },
+        //         { Icon: Linkedin, label: 'LinkedIn', val: 'Connect on LinkedIn', href: personalInfo.linkedin, c: '#ff9dbe' },
+        //       ].map(({ Icon, label, val, href, c }) => (
+        //         <div key={label} className="notebook-card" style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14 }}>
+        //           <div style={{ width: 40, height: 40, borderRadius: 11, background: 'rgba(196,176,255,0.05)', border: '1px solid rgba(196,176,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        //             <Icon size={16} color={c} />
+        //           </div>
+        //           <div>
+        //             <p style={{ margin: 0, fontSize: 10, color: '#3a3050', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{label}</p>
+        //             {href ? (
+        //               <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
+        //                 style={{ fontSize: 13, color: '#c4b0ff', fontWeight: 500, textDecoration: 'none' }}
+        //                 onMouseEnter={e => e.target.style.color = '#ff9dbe'}
+        //                 onMouseLeave={e => e.target.style.color = '#c4b0ff'}
+        //               >{val}</a>
+        //             ) : (
+        //               <p style={{ margin: 0, fontSize: 13, color: '#c4b0ff', fontWeight: 500 }}>{val}</p>
+        //             )}
+        //           </div>
+        //         </div>
+        //       ))}
+        //     </div>
 
-            {/* Form */}
-            <div className="notebook-card" style={{ padding: '36px 40px' }}>
-              <h3 style={{ margin: '0 0 4px', fontSize: 20, fontWeight: 800, color: '#fff' }}>Send a Message ✉️</h3>
-              <p style={{ margin: '0 0 28px', fontSize: 13, color: '#3a3050' }}>I typically reply within 24 hours.</p>
-              <ContactForm onSuccess={() => setNotification(true)} />
-            </div>
+        //      
+        //     <div className="notebook-card" style={{ padding: '36px 40px' }}>
+        //       <h3 style={{ margin: '0 0 4px', fontSize: 20, fontWeight: 800, color: '#fff' }}>Send a Message ✉️</h3>
+        //       <p style={{ margin: '0 0 28px', fontSize: 13, color: '#3a3050' }}>I typically reply within 24 hours.</p>
+        //       <ContactForm onSuccess={() => setNotification(true)} />
+        //     </div>
 
-          </div>
-        </FadeSection>
+        //   </div>
+        // </FadeSection> */}
 
       </div>
 
