@@ -1,34 +1,38 @@
 import React from 'react'
-import { Code2 } from 'lucide-react'; 
+import { Code2  , ExternalLink} from 'lucide-react'; 
 
 const otherProjects = [
   {
-    title: "Crafter's Den",
-    description: 'A full-stack web app for a crafts and arts store built with PHP & Laravel, featuring product management, user authentication, and a clean shopping experience.',
-    tech: ['PHP', 'Laravel', 'MySQL', 'Bootstrap'],
-    icon: '🎨',
-    codeUrl: 'https://github.com/palwashaaamir',
+    title: 'SiPa Recipes',
+    description: 'A full-stack recipe sharing web app built with PHP and MySQL. Users can browse recipes by category, submit their own with image upload, leave star ratings, and contact the platform. Features a MySQL trigger that auto-recalculates average ratings.',
+    tech: ['PHP', 'MySQL', 'Bootstrap', 'JavaScript', 'WOW.js'],
+    icon: '🍽️',
+    codeUrl: 'https://github.com/Palwasha-khan/recipee-website',
+    liveUrl: 'https://www.linkedin.com/posts/palwasha-khan2201_webengineering-semesterproject-php-activity-7378407675392401408-cY4c/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFtL3bEBRqxEZ0-J9_SUAz5v9ZjDeFX4Lvw',
   },
   {
-    title: 'SpendSmart',
-    description: 'A personal finance tracker and budgeting app built in React, helping users log expenses, categorise spending, and visualise budget health with intuitive charts.',
-    tech: ['React', 'JavaScript', 'CSS', 'LocalStorage'],
-    icon: '💰',
-    codeUrl: 'https://github.com/palwashaaamir',
+    title: 'Todo App',
+    description: 'A task management app built with PHP and Laravel following MVC architecture. Supports full CRUD operations, task status tracking by priority and completion state, and secure database integration using Eloquent ORM.',
+    tech: ['PHP', 'Laravel', 'MySQL', 'Bootstrap', 'Blade'],
+    icon: '✅',
+    codeUrl: 'https://github.com/Palwasha-khan/Todo-app',
+    liveUrl: 'https://www.linkedin.com/posts/palwasha-khan2201_laravel-php-webdevelopment-activity-7377980452088987648-D60X/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFtL3bEBRqxEZ0-J9_SUAz5v9ZjDeFX4Lvw',
   },
   {
-    title: 'GreenBite',
-    description: 'A sustainability-focused recipe web app promoting plant-based eating. Users explore recipes, calculate eco-impact scores, and save favourites.',
-    tech: ['HTML', 'CSS', 'JavaScript', 'API Integration'],
-    icon: '🌱',
-    codeUrl: 'https://github.com/palwashaaamir',
+    title: 'Golf Club Project',
+    description: 'A pixel-perfect front-end clone of the Sidcup Family Golf website showcasing advanced CSS animations, a custom animated cursor with blur effect, 3D card hover effects, infinite scrolling text, and scroll-triggered animations using GSAP ScrollTrigger.',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'GSAP', 'RemixIcon'],
+    icon: '⛳',
+    codeUrl: 'https://github.com/Palwasha-khan/Golf-club-project',
+    liveUrl: 'https://golf-club-project-ten.vercel.app/',
   },
   {
-    title: 'Python Data Analysis',
-    description: 'Exploratory data analysis and visualisation projects using Python—covering statistical analysis, pattern recognition, and matplotlib/seaborn visualisations.',
-    tech: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
-    icon: '📊',
-    codeUrl: 'https://github.com/palwashaaamir',
+    title: 'Devsland Landing Page',
+    description: 'A sleek responsive one-page landing page with smooth scroll navigation, sticky header, and a mobile-first design. Built with semantic HTML5 and Bootstrap 5 for a clean minimalist UI. Deployed live on Vercel.',
+    tech: ['HTML5', 'CSS3', 'Bootstrap 5'],
+    icon: '🌐',
+    codeUrl: 'https://github.com/Palwasha-khan/devsland-web-project',
+    liveUrl: 'https://devsland-web-project-m1o8yroad-palwasha-khans-projects-5703552d.vercel.app/',
   },
 ];
 const OtherProjects = ({Github, Linkedin}) => {
@@ -57,9 +61,26 @@ const OtherProjects = ({Github, Linkedin}) => {
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 18 }}>
                   {p.tech.map(t => <span key={t} className="tech-badge" style={{ fontSize: 10.5 }}>{t}</span>)}
                 </div>
-                <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ width: '100%', justifyContent: 'center', fontSize: 13 }}>
-                  <Github size={13} /> View on GitHub
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <a
+                  href={p.codeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline"
+                  style={{ flex: 1, justifyContent: 'center', fontSize: 13 }}
+                >
+                  <Github size={13} /> GitHub
                 </a>
+                  <a
+                  href={p.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline"
+                  style={{ flex: 1, justifyContent: 'center', fontSize: 13 }}
+                >
+                  <ExternalLink size={13} /> Live Demo
+                </a>
+              </div>
               </div>
             ))}
           </div>
