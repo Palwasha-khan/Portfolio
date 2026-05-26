@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  ExternalLink, Mail, Phone, MapPin,
-  Code2, Layers, Wrench, Send, CheckCircle, ChevronDown,
-  Sparkles, Star, Zap, Globe, BookOpen, Award, Briefcase, GraduationCap, X
-} from 'lucide-react';
+import { Mail, CheckCircle, X } from 'lucide-react';
 import ContactForm from './components/ContactForm';
 import TechStack from './components/TechStack';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
-
-// Custom SVG icons for Github and LinkedIn 
+import About from './components/About';
+import FeaturedProjects from './components/FeaturedProjects';
+import OtherProjects from './components/OtherProjects';
 
 function Github({ size = 16, color = 'currentColor' }) {
   return (
@@ -26,9 +23,7 @@ function Linkedin({ size = 16, color = 'currentColor' }) {
     </svg>
   );
 }
-
-// ─── DATA ────────────────────────────────────────────────────────────────────
-
+ 
 const personalInfo = {
   name: 'Palwasha  ',
   title: 'Software Engineer',
@@ -41,92 +36,13 @@ const personalInfo = {
   github: 'https://github.com/Palwasha-khan/',
 };
 
-const featuredProjects = [
-  {
-    id: 1,
-    title: 'Startup Mentor',
-    subtitle: 'Final Year Project — AI-Powered Startup Idea Evaluator',
-    badge: '🎓 Final Year Project',
-    accentBorder: 'rgba(255,102,153,0.3)',
-    iconBg: 'from-pink-500 to-purple-600',
-    icon: '🚀',
-    description:
-      'An intelligent web platform leveraging Large Language Models (LLMs) and Natural Language Processing (NLP) to rigorously evaluate startup viability. The system performs multi-dimensional AI-driven analysis—assessing market fit, competition landscape, revenue model strength, and technical feasibility—delivering a comprehensive viability score and actionable strategic insights.',
-    features: [
-      'LLM & NLP-powered idea analysis engine',
-      'Multi-dimensional viability scoring system',
-      'Market research & competitor intelligence',
-      'Revenue model & technical feasibility assessment',
-      'Interactive dashboard with AI-generated reports',
-      'Django REST API backend architecture',
-    ],
-    tech: ['Python', 'Django', 'OpenAI API', 'NLP', 'React', 'Tailwind CSS', 'PostgreSQL', 'REST API'],
-    gradientAccent: 'rgba(255,102,153,0.12)',
-    badgeBg: 'rgba(255,102,153,0.15)',
-    badgeColor: '#ffb3cc',
-    badgeBorder: 'rgba(255,102,153,0.3)',
-    codeUrl: 'https://github.com/palwashaaamir',
-    demoUrl: '#',
-  },
-  {
-    id: 2,
-    title: 'SparkCart',
-    subtitle: 'Full-Stack MERN E-Commerce Platform',
-    badge: '💎 Featured Project',
-    accentBorder: 'rgba(139,80,255,0.3)',
-    iconBg: 'from-purple-500 to-indigo-600',
-    icon: '💎',
-    description:
-      'A production-ready, full-stack e-commerce platform purpose-built for selling handmade jewellery. Features a complete shopping experience from browsable product catalogue to secure checkout, with Stripe-powered payments, Cloudinary-managed media, and a robust admin dashboard for inventory and order management.',
-    features: [
-      'Full Stripe payment gateway integration',
-      'Cloudinary media management & optimised image delivery',
-      'JWT-based authentication & secure user sessions',
-      'Admin dashboard for orders, inventory & analytics',
-      'Cart, wishlist, and real-time stock updates',
-      'Responsive design with mobile-first approach',
-    ],
-    tech: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Stripe API', 'Cloudinary', 'JWT', 'Tailwind CSS'],
-    gradientAccent: 'rgba(139,80,255,0.12)',
-    badgeBg: 'rgba(139,80,255,0.15)',
-    badgeColor: '#c4b0ff',
-    badgeBorder: 'rgba(139,80,255,0.35)',
-    codeUrl: 'https://github.com/palwashaaamir',
-    demoUrl: '#',
-  },
+const navLinks = [
+    { id: 'about', label: 'About' },
+    { id: 'featured', label: 'Featured' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'contact', label: 'Contact' },
 ];
-
-const otherProjects = [
-  {
-    title: "Crafter's Den",
-    description: 'A full-stack web app for a crafts and arts store built with PHP & Laravel, featuring product management, user authentication, and a clean shopping experience.',
-    tech: ['PHP', 'Laravel', 'MySQL', 'Bootstrap'],
-    icon: '🎨',
-    codeUrl: 'https://github.com/palwashaaamir',
-  },
-  {
-    title: 'SpendSmart',
-    description: 'A personal finance tracker and budgeting app built in React, helping users log expenses, categorise spending, and visualise budget health with intuitive charts.',
-    tech: ['React', 'JavaScript', 'CSS', 'LocalStorage'],
-    icon: '💰',
-    codeUrl: 'https://github.com/palwashaaamir',
-  },
-  {
-    title: 'GreenBite',
-    description: 'A sustainability-focused recipe web app promoting plant-based eating. Users explore recipes, calculate eco-impact scores, and save favourites.',
-    tech: ['HTML', 'CSS', 'JavaScript', 'API Integration'],
-    icon: '🌱',
-    codeUrl: 'https://github.com/palwashaaamir',
-  },
-  {
-    title: 'Python Data Analysis',
-    description: 'Exploratory data analysis and visualisation projects using Python—covering statistical analysis, pattern recognition, and matplotlib/seaborn visualisations.',
-    tech: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
-    icon: '📊',
-    codeUrl: 'https://github.com/palwashaaamir',
-  },
-];
- 
 
 // ─── NOTIFICATION ─────────────────────────────────────────────────────────────
 
@@ -234,135 +150,12 @@ function FadeSection({ children, id, style = {} }) {
   );
 }
 
-// ─── FEATURED CARD ────────────────────────────────────────────────────────────
-
-function FeaturedCard({ p }) {
-  return (
-    <div className="featured-card">
-      {/* Subtle background gradient */}
-      <div style={{
-        position: 'absolute', inset: 0, borderRadius: 24, pointerEvents: 'none',
-        background: `radial-gradient(ellipse at 20% 50%, ${p.gradientAccent} 0%, transparent 55%)`,
-      }} />
-
-      <div style={{
-        position: 'relative', zIndex: 1,
-        display: 'grid', gridTemplateColumns: '1fr 1fr',
-      }} className="fc-grid">
-
-        {/* LEFT */}
-        <div style={{ padding: '42px 48px', borderRight: '1px solid rgba(196,176,255,0.07)' }} className="fc-left">
-          {/* Badge */}
-          <div style={{ marginBottom: 22 }}>
-            <span style={{
-              padding: '5px 14px', borderRadius: 9999, fontSize: 11, fontWeight: 700,
-              letterSpacing: '0.04em', background: p.badgeBg,
-              border: `1px solid ${p.badgeBorder}`, color: p.badgeColor,
-            }}>{p.badge}</span>
-          </div>
-
-          {/* Title row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
-            <div style={{
-              width: 56, height: 56, borderRadius: 16, flexShrink: 0, fontSize: 28,
-              background: `linear-gradient(135deg, ${p.gradientAccent.replace('0.12', '0.3')}, rgba(139,80,255,0.25))`,
-              border: `1px solid ${p.accentBorder}`,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: `0 8px 24px ${p.accentBorder}`,
-            }}>{p.icon}</div>
-            <div>
-              <h3 style={{ margin: 0, fontSize: 26, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.03em' }}>{p.title}</h3>
-              <p style={{ margin: '4px 0 0', fontSize: 13, color: '#7a6d90', fontWeight: 500 }}>{p.subtitle}</p>
-            </div>
-          </div>
-
-          <p style={{ fontSize: 14, lineHeight: '1.75', color: '#9b8eb8', margin: '0 0 24px' }}>{p.description}</p>
-
-          {/* Tech badges */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 28 }}>
-            {p.tech.map(t => <span key={t} className="tech-badge">{t}</span>)}
-          </div>
-
-          {/* CTA */}
-          <div style={{ display: 'flex', gap: 10 }}>
-            <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              <Github size={14} /> View Code
-            </a>
-            <a href={p.demoUrl} className="btn-outline">
-              <ExternalLink size={14} /> Live Demo
-            </a>
-          </div>
-        </div>
-
-        {/* RIGHT */}
-        <div style={{ padding: '42px 48px', background: 'rgba(196,176,255,0.012)' }} className="fc-right">
-          <p style={{ margin: '0 0 18px', fontSize: 11, fontWeight: 800, color: '#c4b0ff', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-            Key Features
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {p.features.map((f, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 11 }}>
-                <div style={{
-                  width: 22, height: 22, borderRadius: 7, flexShrink: 0, marginTop: 1,
-                  background: 'linear-gradient(135deg, rgba(255,102,153,0.12), rgba(139,80,255,0.12))',
-                  border: '1px solid rgba(196,176,255,0.18)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: 'linear-gradient(135deg, #ff6699, #8b50ff)' }} />
-                </div>
-                <span style={{ fontSize: 13.5, color: '#c0b8d8', lineHeight: '1.55', fontWeight: 400 }}>{f}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Highlight box */}
-          <div style={{
-            marginTop: 28, padding: '18px 20px', borderRadius: 14,
-            background: 'rgba(196,176,255,0.035)', border: '1px solid rgba(196,176,255,0.1)',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 8 }}>
-              <Zap size={12} color="#ff9dbe" />
-              <span style={{ fontSize: 10, fontWeight: 800, color: '#ff9dbe', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Tech Highlight</span>
-            </div>
-            <p style={{ margin: 0, fontSize: 12.5, color: '#6b5f85', lineHeight: '1.65' }}>
-              {p.id === 1
-                ? 'Integrates state-of-the-art LLM APIs with custom NLP pipelines to deliver context-aware startup analysis at scale.'
-                : "End-to-end Stripe payment flows with webhook handling, combined with Cloudinary's CDN for optimised, high-performance media delivery."}
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  );
-}
- 
-
 // ─── APP ──────────────────────────────────────────────────────────────────────
-
 export default function App() {
-  const [notification, setNotification] = useState(false);
+  const [notification, setNotification] = useState(false); 
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const scrollTo = (id) => {
-    setMobileMenuOpen(false);
-    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 50);
-  };
-
-  const navLinks = [
-    { id: 'about', label: 'About' },
-    { id: 'featured', label: 'Featured' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'contact', label: 'Contact' },
-  ];
 
   return (
     <div className="grid-bg" style={{ minHeight: '100vh', overflowX: 'hidden' }}>
@@ -407,155 +200,34 @@ export default function App() {
           </a>
         </div>
       </nav>
-
-      {/* ─── HERO ─── */}
+ 
       <Hero personalInfo={personalInfo} Github={Github} Linkedin={Linkedin}/>
-
-  
 
       {/* ─── CONTENT WRAPPER ─── */}
       <div style={{ maxWidth: 1120, margin: '0 auto', padding: '0 28px' }}>
-
-        {/* ─── ABOUT ─── */}
+ 
         <FadeSection id="about" style={{ padding: '100px 0' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span className="section-tag"><BookOpen size={10} /> About Me</span>
-            <h2 style={{ margin: '18px 0 0', fontSize: 38, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>
-              My <span className="gradient-text">Journey</span>
-            </h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="about-grid">
-            {/* Experience */}
-            <div className="notebook-card" style={{ padding: '30px 32px' }}>
-              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 20 }}>
-                <div style={{ width: 34, height: 34, borderRadius: 10, background: 'linear-gradient(135deg, rgba(255,102,153,0.12), rgba(139,80,255,0.12))', border: '1px solid rgba(196,176,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Briefcase size={15} color="#c4b0ff" />
-                </div>
-                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: '#f0eeff' }}>Experience</h3>
-              </div>
-              <div style={{ paddingLeft: 18, borderLeft: '2px solid rgba(255,102,153,0.3)' }}>
-                <p style={{ margin: '0 0 2px', fontSize: 14, fontWeight: 700, color: '#fff' }}>Software Engineering Intern</p>
-                <p style={{ margin: '0 0 4px', fontSize: 12, color: '#ff9dbe', fontWeight: 600 }}>Tech Industry · UK</p>
-                <p style={{ margin: '0 0 10px', fontSize: 11, color: '#4a4060', fontWeight: 500 }}>2024</p>
-                <p style={{ margin: 0, fontSize: 13, color: '#9185a8', lineHeight: '1.7' }}>
-                  Contributed to full-stack feature development, collaborated in Agile sprints, and assisted with REST API integration and QA testing workflows.
-                </p>
-              </div>
-            </div>
-
-            {/* Education */}
-            <div className="notebook-card" style={{ padding: '30px 32px' }}>
-              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 20 }}>
-                <div style={{ width: 34, height: 34, borderRadius: 10, background: 'linear-gradient(135deg, rgba(255,102,153,0.12), rgba(139,80,255,0.12))', border: '1px solid rgba(196,176,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <GraduationCap size={15} color="#c4b0ff" />
-                </div>
-                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: '#f0eeff' }}>Education</h3>
-              </div>
-              <div style={{ paddingLeft: 18, borderLeft: '2px solid rgba(139,80,255,0.35)' }}>
-                <p style={{ margin: '0 0 2px', fontSize: 14, fontWeight: 700, color: '#fff' }}>BSc (Hons) Software Engineering</p>
-                <p style={{ margin: '0 0 4px', fontSize: 12, color: '#a880ff', fontWeight: 600 }}>University · United Kingdom</p>
-                <p style={{ margin: '0 0 10px', fontSize: 11, color: '#4a4060', fontWeight: 500 }}>2021 – 2025</p>
-                <p style={{ margin: 0, fontSize: 13, color: '#9185a8', lineHeight: '1.7' }}>
-                  FYP: <em style={{ color: '#c4b0ff' }}>Startup Mentor</em> — AI startup viability evaluator. Core modules: Algorithms, Software Architecture, ML, Web Dev, Database Systems.
-                </p>
-              </div>
-            </div>
-
-            {/* Certifications */}
-            <div className="notebook-card" style={{ padding: '30px 32px', gridColumn: '1 / -1' }}>
-              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 20 }}>
-                <div style={{ width: 34, height: 34, borderRadius: 10, background: 'linear-gradient(135deg, rgba(255,102,153,0.12), rgba(139,80,255,0.12))', border: '1px solid rgba(196,176,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Award size={15} color="#c4b0ff" />
-                </div>
-                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: '#f0eeff' }}>Certifications & Achievements</h3>
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-                {[
-                  'Python Programming – Foundational & Intermediate',
-                  'JavaScript Full-Stack Development',
-                  'Responsive Web Design – freeCodeCamp',
-                  'React Developer Certification',
-                  'MongoDB for JavaScript Developers',
-                ].map((cert, i) => (
-                  <div key={i} style={{
-                    display: 'flex', alignItems: 'center', gap: 8,
-                    padding: '9px 16px', borderRadius: 10, fontSize: 13, fontWeight: 500,
-                    background: 'rgba(196,176,255,0.04)', border: '1px solid rgba(196,176,255,0.13)',
-                    color: '#c4b0ff',
-                  }}>
-                    <CheckCircle size={12} color="#ff9dbe" />
-                    {cert}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <About />
         </FadeSection>
-
-        {/* ─── FEATURED PROJECTS ─── */}
+ 
         <FadeSection id="featured" style={{ padding: '100px 0' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span className="section-tag"><Star size={10} /> Featured Work</span>
-            <h2 style={{ margin: '18px 0 14px', fontSize: 38, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>
-              Flagship <span className="gradient-text">Applications</span>
-            </h2>
-            <p style={{ margin: 0, fontSize: 16, color: '#4a4060', maxWidth: 520, marginLeft: 'auto', marginRight: 'auto', lineHeight: '1.7' }}>
-              Two showcase projects demonstrating full-stack depth, AI integration, and real-world engineering.
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-            {featuredProjects.map(p => <FeaturedCard key={p.id} p={p} />)}
-          </div>
+        <FeaturedProjects Github={Github} Linkedin={Linkedin} />
         </FadeSection>
-
-        {/* ─── OTHER PROJECTS ─── */}
+ 
         <FadeSection id="projects" style={{ padding: '100px 0' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <span className="section-tag"><Code2 size={10} /> More Projects</span>
-            <h2 style={{ margin: '18px 0 0', fontSize: 38, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>
-              Other <span className="gradient-text">Work</span>
-            </h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(285px, 1fr))', gap: 18 }}>
-            {otherProjects.map(p => (
-              <div key={p.title} className="notebook-card" style={{ padding: '28px', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
-                  <div style={{
-                    width: 44, height: 44, borderRadius: 13, flexShrink: 0, fontSize: 22,
-                    background: 'linear-gradient(135deg, rgba(255,102,153,0.1), rgba(139,80,255,0.1))',
-                    border: '1px solid rgba(196,176,255,0.14)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>{p.icon}</div>
-                  <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#fff' }}>{p.title}</h3>
-                </div>
-                <p style={{ margin: '0 0 16px', fontSize: 13.5, color: '#6a6080', lineHeight: '1.7', flex: 1 }}>{p.description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 18 }}>
-                  {p.tech.map(t => <span key={t} className="tech-badge" style={{ fontSize: 10.5 }}>{t}</span>)}
-                </div>
-                <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ width: '100%', justifyContent: 'center', fontSize: 13 }}>
-                  <Github size={13} /> View on GitHub
-                </a>
-              </div>
-            ))}
-          </div>
+          <OtherProjects Github={Github} Linkedin={Linkedin} />
         </FadeSection>
-
-        {/* ─── SKILLS ─── */}
+ 
         <FadeSection id="skills" style={{ padding: '100px 0' }}>
         <TechStack /> 
         </FadeSection>
-
-        {/* ─── CONTACT Form ─── */}
+ 
         <FadeSection id="contact" style={{ padding: '100px 0' }}>
         <ContactForm info={personalInfo} Github={Github} Linkedin={Linkedin} onSuccess={() => setNotification(true)} />
         </FadeSection>
          
       </div>
-
-      {/* ─── FOOTER ─── */}
+ 
       <Footer personalInfo={personalInfo} Github={Github} Linkedin={Linkedin} Mail={Mail} />
 
       {/* ─── RESPONSIVE STYLES ─── */}
