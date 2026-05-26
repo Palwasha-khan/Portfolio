@@ -5,8 +5,12 @@ import {
   Sparkles, Star, Zap, Globe, BookOpen, Award, Briefcase, GraduationCap, X
 } from 'lucide-react';
 import ContactForm from './components/ContactForm';
+import TechStack from './components/TechStack';
+import Footer from './components/Footer';
+import Hero from './components/Hero';
 
-// Custom SVG icons for Github and LinkedIn (not in this lucide-react version)
+// Custom SVG icons for Github and LinkedIn 
+
 function Github({ size = 16, color = 'currentColor' }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
@@ -122,53 +126,7 @@ const otherProjects = [
     codeUrl: 'https://github.com/palwashaaamir',
   },
 ];
-
-const skillCategories = [
-  {
-    name: 'Frontend',
-    icon: <Globe size={15} color="#ff9dbe" />,
-    items: [
-      { name: 'React.js', level: 90 },
-      { name: 'JavaScript (ES6+)', level: 88 },
-      { name: 'HTML5 & CSS3', level: 92 },
-      { name: 'Tailwind CSS', level: 88 },
-      { name: 'Bootstrap', level: 80 },
-    ],
-  },
-  {
-    name: 'Backend',
-    icon: <Code2 size={15} color="#c4b0ff" />,
-    items: [
-      { name: 'Node.js & Express', level: 82 },
-      { name: 'PHP & Laravel', level: 78 },
-      { name: 'Python & Django', level: 80 },
-      { name: 'REST APIs', level: 85 },
-      { name: 'MongoDB / MySQL', level: 80 },
-    ],
-  },
-  {
-    name: 'AI & Data',
-    icon: <Zap size={15} color="#ff9dbe" />,
-    items: [
-      { name: 'OpenAI / LLMs', level: 72 },
-      { name: 'NLP', level: 70 },
-      { name: 'Pandas & NumPy', level: 72 },
-      { name: 'Data Analysis', level: 74 },
-      { name: 'PostgreSQL', level: 76 },
-    ],
-  },
-  {
-    name: 'Tools',
-    icon: <Wrench size={15} color="#c4b0ff" />,
-    items: [
-      { name: 'Git & GitHub', level: 88 },
-      { name: 'Stripe API', level: 78 },
-      { name: 'Cloudinary', level: 75 },
-      { name: 'Figma', level: 68 },
-      { name: 'Agile / Scrum', level: 80 },
-    ],
-  },
-];
+ 
 
 // ─── NOTIFICATION ─────────────────────────────────────────────────────────────
 
@@ -273,41 +231,6 @@ function FadeSection({ children, id, style = {} }) {
     >
       {children}
     </section>
-  );
-}
-
-// ─── SKILL CARD ───────────────────────────────────────────────────────────────
-
-function SkillCard({ name, icon, items }) {
-  return (
-    <div className="notebook-card" style={{ padding: '28px 28px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 22 }}>
-        <div style={{
-          width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-          background: 'linear-gradient(135deg, rgba(255,102,153,0.12), rgba(139,80,255,0.12))',
-          border: '1px solid rgba(196,176,255,0.18)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>{icon}</div>
-        <span style={{ fontSize: 15, fontWeight: 700, color: '#f0eeff' }}>{name}</span>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 13 }}>
-        {items.map(s => (
-          <div key={s.name}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
-              <span style={{ fontSize: 13, color: '#c4b0ff', fontWeight: 500 }}>{s.name}</span>
-              <span style={{ fontSize: 11, color: '#4a4060', fontWeight: 600 }}>{s.level}%</span>
-            </div>
-            <div style={{ height: 5, background: 'rgba(196,176,255,0.07)', borderRadius: 99, overflow: 'hidden' }}>
-              <div style={{
-                height: '100%', width: `${s.level}%`,
-                background: 'linear-gradient(90deg, #ff6699, #8b50ff)',
-                borderRadius: 99, transition: 'width 1.3s cubic-bezier(0.4,0,0.2,1)',
-              }} />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -486,127 +409,9 @@ export default function App() {
       </nav>
 
       {/* ─── HERO ─── */}
-      <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-        {/* Orbs */}
-        {[
-          { top: '10%', left: '5%', size: 520, color: 'rgba(255,102,153,0.11)' },
-          { top: '25%', right: '3%', size: 640, color: 'rgba(139,80,255,0.09)' },
-          { bottom: '8%', left: '45%', size: 420, color: 'rgba(196,176,255,0.07)' },
-        ].map((orb, i) => (
-          <div key={i} style={{
-            position: 'absolute', borderRadius: '50%', pointerEvents: 'none',
-            width: orb.size, height: orb.size,
-            background: `radial-gradient(circle, ${orb.color} 0%, transparent 65%)`,
-            ...(orb.top ? { top: orb.top } : { bottom: orb.bottom }),
-            ...(orb.left ? { left: orb.left } : { right: orb.right }),
-            transform: orb.bottom ? 'translateX(-50%)' : 'none',
-          }} />
-        ))}
+      <Hero personalInfo={personalInfo} Github={Github} Linkedin={Linkedin}/>
 
-        {/* Floating widgets */}
-        <div className="animate-float" style={{
-          position: 'absolute', top: '18%', right: '10%', padding: '12px 18px',
-          background: 'rgba(255,102,153,0.08)', border: '1px solid rgba(255,102,153,0.18)',
-          borderRadius: 16, backdropFilter: 'blur(10px)', fontSize: 22,
-          display: 'flex', alignItems: 'center', gap: 8,
-        }}>
-          <span>🚀</span>
-          <span style={{ fontSize: 12, color: '#ff9dbe', fontWeight: 600 }}>Building things</span>
-        </div>
-
-        <div className="animate-float-delay" style={{
-          position: 'absolute', bottom: '28%', right: '18%', padding: '10px 14px',
-          background: 'rgba(139,80,255,0.08)', border: '1px solid rgba(139,80,255,0.2)',
-          borderRadius: 14, backdropFilter: 'blur(10px)', fontSize: 20,
-        }}>💡</div>
-
-        <div className="animate-float" style={{
-          animationDelay: '2.5s',
-          position: 'absolute', top: '58%', left: '4%', padding: '10px 14px',
-          background: 'rgba(196,176,255,0.07)', border: '1px solid rgba(196,176,255,0.15)',
-          borderRadius: 14, backdropFilter: 'blur(10px)', fontSize: 18,
-        }}>✨</div>
-
-        <div style={{ maxWidth: 1120, margin: '0 auto', padding: '100px 28px 60px', width: '100%' }}>
-          <div style={{ maxWidth: 740 }}>
-
-            <div style={{ marginBottom: 28, animationDelay: '0s' }} className="animate-slide-in-up">
-              <span className="section-tag">
-                <Sparkles size={10} /> Open to Opportunities
-              </span>
-            </div>
-
-            <div className="animate-slide-in-up" style={{ animationDelay: '0.08s' }}>
-              <p style={{ margin: '0 0 6px', fontSize: 17, color: '#7a6d90', fontWeight: 600 }}>
-                Hi there, I'm 👋
-              </p>
-              <h1 style={{
-                margin: '0 0 4px', lineHeight: 1.0, letterSpacing: '-0.045em', color: '#ffffff',
-                fontSize: 'clamp(52px, 8vw, 84px)', fontWeight: 900,
-              }}>
-                {personalInfo.name}
-              </h1>
-            </div>
-
-            <h2 className="animate-shimmer" style={{
-              margin: '8px 0 26px', letterSpacing: '-0.025em', fontWeight: 800,
-              fontSize: 'clamp(20px, 3.5vw, 34px)', lineHeight: 1.25,
-            }}>
-              {personalInfo.tagline}
-            </h2>
-
-            <p className="animate-fade-in" style={{
-              fontSize: 17, lineHeight: '1.78', color: '#9185a8',
-              maxWidth: 600, margin: '0 0 38px',
-            }}>
-              {personalInfo.bio}
-            </p>
-
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 52 }} className="animate-fade-in">
-              <button onClick={() => scrollTo('featured')} className="btn-primary" style={{ padding: '14px 30px', fontSize: 15 }}>
-                <Star size={15} /> View My Work
-              </button>
-              <button onClick={() => scrollTo('contact')} className="btn-outline" style={{ padding: '14px 30px', fontSize: 15 }}>
-                <Mail size={15} /> Get in Touch
-              </button>
-              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: '14px 18px' }}>
-                <Github size={16} />
-              </a>
-              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: '14px 18px' }}>
-                <Linkedin size={16} />
-              </a>
-            </div>
-
-            {/* Stats row */}
-            <div style={{ display: 'flex', gap: 40, flexWrap: 'wrap' }}>
-              {[
-                { v: '6+', l: 'Projects Built' },
-                { v: '4', l: 'Tech Stacks' },
-                { v: 'BSc', l: 'Software Eng.' },
-                { v: 'UK', l: 'Based' },
-              ].map(({ v, l }) => (
-                <div key={l}>
-                  <p style={{
-                    margin: 0, fontSize: 30, fontWeight: 900, letterSpacing: '-0.04em',
-                    background: 'linear-gradient(135deg, #ff9dbe, #c4b0ff)',
-                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                  }}>{v}</p>
-                  <p style={{ margin: 0, fontSize: 12, color: '#4a4060', fontWeight: 600, letterSpacing: '0.03em' }}>{l}</p>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-
-        {/* Scroll hint */}
-        <div style={{ position: 'absolute', bottom: 36, left: '50%', transform: 'translateX(-50%)' }}>
-          <button onClick={() => scrollTo('about')} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
-            <span style={{ fontSize: 10, color: '#3a3050', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Scroll</span>
-            <ChevronDown size={16} color="#3a3050" style={{ animation: 'float 2.2s ease-in-out infinite' }} />
-          </button>
-        </div>
-      </section>
+  
 
       {/* ─── CONTENT WRAPPER ─── */}
       <div style={{ maxWidth: 1120, margin: '0 auto', padding: '0 28px' }}>
@@ -740,120 +545,18 @@ export default function App() {
 
         {/* ─── SKILLS ─── */}
         <FadeSection id="skills" style={{ padding: '100px 0' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <span className="section-tag"><Layers size={10} /> Tech Stack</span>
-            <h2 style={{ margin: '18px 0 0', fontSize: 38, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>
-              Skills & <span className="gradient-text">Technologies</span>
-            </h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))', gap: 18 }}>
-            {skillCategories.map(cat => (
-              <SkillCard key={cat.name} name={cat.name} icon={cat.icon} items={cat.items} />
-            ))}
-          </div>
-
-          {/* Also familiar with */}
-          <div style={{
-            marginTop: 24, padding: '24px 32px', borderRadius: 16,
-            background: 'rgba(196,176,255,0.025)', border: '1px solid rgba(196,176,255,0.07)',
-            textAlign: 'center',
-          }}>
-            <p style={{ margin: '0 0 14px', fontSize: 11, fontWeight: 700, color: '#3a3050', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              Also familiar with
-            </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
-              {['TypeScript', 'GraphQL', 'Docker', 'Firebase', 'Vercel', 'Netlify', 'Postman', 'VS Code', 'Linux / CLI', 'JIRA', 'Jest'].map(t => (
-                <span key={t} className="tech-badge" style={{ fontSize: 11 }}>{t}</span>
-              ))}
-            </div>
-          </div>
+        <TechStack /> 
         </FadeSection>
 
-        {/* ─── CONTACT ─── */}
+        {/* ─── CONTACT Form ─── */}
         <FadeSection id="contact" style={{ padding: '100px 0' }}>
-        <ContactForm info={personalInfo} Github={Github} Linkedin={Linkedin}  />
+        <ContactForm info={personalInfo} Github={Github} Linkedin={Linkedin} onSuccess={() => setNotification(true)} />
         </FadeSection>
-        {/* <FadeSection id="contact" style={{ padding: '100px 0' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span className="section-tag"><Mail size={10} /> Contact</span>
-            <h2 style={{ margin: '18px 0 14px', fontSize: 38, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>
-              Let's <span className="gradient-text">Work Together</span>
-            </h2>
-            <p style={{ margin: 0, fontSize: 16, color: '#4a4060', maxWidth: 450, marginLeft: 'auto', marginRight: 'auto', lineHeight: '1.7' }}>
-              Have a project in mind or just want to connect? I'd love to hear from you.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.5fr)', gap: 24, maxWidth: 920, margin: '0 auto' }} className="contact-grid">
-
-        //     
-        //     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        //       {[
-        //         { Icon: Mail, label: 'Email', val: personalInfo.email, href: `mailto:${personalInfo.email}`, c: '#ff9dbe' },
-        //         { Icon: Phone, label: 'Phone', val: personalInfo.phone, href: `tel:${personalInfo.phone}`, c: '#c4b0ff' },
-        //         { Icon: MapPin, label: 'Location', val: personalInfo.location, href: null, c: '#ff9dbe' },
-        //         { Icon: Github, label: 'GitHub', val: 'github.com/palwashaaamir', href: personalInfo.github, c: '#c4b0ff' },
-        //         { Icon: Linkedin, label: 'LinkedIn', val: 'Connect on LinkedIn', href: personalInfo.linkedin, c: '#ff9dbe' },
-        //       ].map(({ Icon, label, val, href, c }) => (
-        //         <div key={label} className="notebook-card" style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14 }}>
-        //           <div style={{ width: 40, height: 40, borderRadius: 11, background: 'rgba(196,176,255,0.05)', border: '1px solid rgba(196,176,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-        //             <Icon size={16} color={c} />
-        //           </div>
-        //           <div>
-        //             <p style={{ margin: 0, fontSize: 10, color: '#3a3050', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{label}</p>
-        //             {href ? (
-        //               <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
-        //                 style={{ fontSize: 13, color: '#c4b0ff', fontWeight: 500, textDecoration: 'none' }}
-        //                 onMouseEnter={e => e.target.style.color = '#ff9dbe'}
-        //                 onMouseLeave={e => e.target.style.color = '#c4b0ff'}
-        //               >{val}</a>
-        //             ) : (
-        //               <p style={{ margin: 0, fontSize: 13, color: '#c4b0ff', fontWeight: 500 }}>{val}</p>
-        //             )}
-        //           </div>
-        //         </div>
-        //       ))}
-        //     </div>
-
-        //      
-        //     <div className="notebook-card" style={{ padding: '36px 40px' }}>
-        //       <h3 style={{ margin: '0 0 4px', fontSize: 20, fontWeight: 800, color: '#fff' }}>Send a Message ✉️</h3>
-        //       <p style={{ margin: '0 0 28px', fontSize: 13, color: '#3a3050' }}>I typically reply within 24 hours.</p>
-        //       <ContactForm onSuccess={() => setNotification(true)} />
-        //     </div>
-
-        //   </div>
-        // </FadeSection> */}
-
+         
       </div>
 
       {/* ─── FOOTER ─── */}
-      <footer style={{ borderTop: '1px solid rgba(196,176,255,0.07)', padding: '32px 28px', marginTop: 16 }}>
-        <div style={{ maxWidth: 1120, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
-          <p style={{ margin: 0, fontSize: 13, color: '#3a3050' }}>
-            <span style={{ background: 'linear-gradient(135deg, #ff9dbe, #c4b0ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 800 }}>
-              Palwasha Khan
-            </span>
-            {' '}· Built with React & Tailwind CSS · {new Date().getFullYear()}
-          </p>
-          <div style={{ display: 'flex', gap: 16 }}>
-            {[
-              { href: personalInfo.github, Icon: Github },
-              { href: personalInfo.linkedin, Icon: Linkedin },
-              { href: `mailto:${personalInfo.email}`, Icon: Mail },
-            ].map(({ href, Icon }) => (
-              <a key={href} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
-                style={{ color: '#3a3050', transition: 'color 0.2s', display: 'flex' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#c4b0ff'}
-                onMouseLeave={e => e.currentTarget.style.color = '#3a3050'}
-              >
-                <Icon size={17} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </footer>
+      <Footer personalInfo={personalInfo} Github={Github} Linkedin={Linkedin} Mail={Mail} />
 
       {/* ─── RESPONSIVE STYLES ─── */}
       <style>{`
