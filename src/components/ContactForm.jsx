@@ -26,9 +26,8 @@ export default function ContactForm({ info, Github, Linkedin, onSuccess }) {
     setLoading(true);
     setStatusMessage({ text: '', isError: false });
 
-    const formData = {
-      // ⚠️ Paste the Access Key you get after clicking "Create Form" here:
-      access_key: "76a6c4fa-2389-4a01-babb-590abe3f41bb", 
+    const formData = { 
+      access_key: import.meta.env.VITE_WEB3FORMS_KEY, 
       name: form.name,
       email: form.email,
       message: form.message,
