@@ -156,6 +156,13 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+    const handleScroll = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
 
   return (
     <div className="grid-bg" style={{ minHeight: '100vh', overflowX: 'hidden' }}>
@@ -173,7 +180,7 @@ export default function App() {
       }}>
         <div style={{ maxWidth: 1120, margin: '0 auto', padding: '0 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {/* Logo */}
-          <button onClick={() => scrollTo('hero')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+          <button onClick={() => handleScroll('hero')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{
                 width: 34, height: 34, borderRadius: 10,
@@ -182,14 +189,14 @@ export default function App() {
                 fontSize: 14, fontWeight: 900, color: 'white',
                 boxShadow: '0 4px 14px rgba(139,80,255,0.35)',
               }}>PA</div>
-              <span style={{ fontSize: 15, fontWeight: 700, color: '#f0eeff' }}>Palwasha Aamir</span>
+              <span style={{ fontSize: 15, fontWeight: 700, color: '#f0eeff' }}>Palwasha </span>
             </div>
           </button>
 
           {/* Links (desktop) */}
           <div style={{ display: 'flex', gap: 30 }} className="nav-desktop">
             {navLinks.map(({ id, label }) => (
-              <button key={id} className="nav-link" onClick={() => scrollTo(id)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+              <button key={id} className="nav-link" onClick={() => handleScroll(id)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                 {label}
               </button>
             ))}

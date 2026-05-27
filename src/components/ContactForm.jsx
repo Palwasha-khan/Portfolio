@@ -162,12 +162,7 @@ export default function ContactForm({ info, Github, Linkedin, onSuccess }) {
             </button>
           </form>
 
-          {/* 🔥 CHANGED: Appended live text container message feedback under form closure */}
-          {statusMessage.text && (
-            <p style={{ margin: '20px 0 0', fontSize: 13, fontWeight: 600, textAlign: 'center', color: statusMessage.isError ? '#ff6699' : '#c4b0ff' }}>
-              {statusMessage.text}
-            </p>
-          )}
+          
         </div>
 
       </div>
